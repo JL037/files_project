@@ -1,0 +1,13 @@
+{% extends "files/site.html" %}
+{% block title %} All files {% endblock %}
+{% block body %}
+{% if files %}
+<ul>
+    {% for files in files_app %}
+    <li>{{ files_app.files }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>You better upload some files!</p>
+{% endif %}
+{% endblock %}

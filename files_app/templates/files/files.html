@@ -3,8 +3,8 @@
 {% block body %}
 {% if files %}
 <ul>
-    {% for files in files_app %}
-    <li>{{ files_app.files }}</li>
+    {% for file in files %}
+    <li><a href='/file/{{file.id}}'>{{ file.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

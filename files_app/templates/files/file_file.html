@@ -1,4 +1,8 @@
 {% extends "files/site.html" %}
+{% block title %} Files details {% endblock %}
 {% block body %}
+  <h1>{{ file.name}}</h1>
+  <p>type: {{file.file_type}}</p>
+<p>All <a href="{% url 'files_app' %}>files</a></p>
 {{ file }}
 {% endblock %}

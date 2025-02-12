@@ -1,11 +1,7 @@
 from django.http import HttpResponse
 from django.http import Http404
-from django.shortcuts import  render
+from django.shortcuts import render
 from .models import File
-
-# def files(request):
-#     data = File.objects.all()
-#     return render(request, 'files_app/files.html', {'files': data})
 
 # files_data = [
 #     {'id': 0, 'name': 'image1.jpeg', 'type': 'jpeg'},
@@ -17,7 +13,7 @@ def home(request):
     return HttpResponse("Hello there")
 def files_app(request):
     data = File.objects.all()
-    return render(request, 'files/files.html', {'files_app': data})
+    return render(request, 'files/files.html', {'files': data})
 # def file_file(request, file_id):
 #     f = next((item for item in files_data if item['id'] == file_id), None)
 #     print("five", f)

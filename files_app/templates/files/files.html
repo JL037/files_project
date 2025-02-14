@@ -1,10 +1,10 @@
 {% extends "files/site.html" %}
 {% block title %} View all files {% endblock %}
 {% block body %}
-{% if files_app %}
+{% if files %}
 <ul>
     {% for file in files %}
-    <li><a href='/files/{{file.id}}'>{{ file.name }}</a></li>
+    <li><a href="{% url 'file_file' file.id %}">{{ file.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}

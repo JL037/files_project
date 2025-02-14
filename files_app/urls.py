@@ -21,6 +21,6 @@ from files_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('files_app/', views.files_app, name='files_app'),
-    path('file/<int:file_id>/', views.file_file, name='file')
+    path('files/', views.files_app, name='files_app'),
+    path('file/<int:file_id>/', views.file_file, name='file_file'),
 ]

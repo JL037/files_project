@@ -22,10 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-if not SECRET_KEY:
-    print("no secret key found from env, using temp value 5")
-    SECRET_KEY = 5
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -34,7 +32,7 @@ SIMPLE_JWT = {
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
-    "SIGNING_KEY": os.environ.get('SECRET_JWT'),
+    "SIGNING_KEY": os.getenv('SECRET_JWT'),
     "VERIFYING_KEY": "",
     "AUDIENCE": None,
     "ISSUER": None,
@@ -139,6 +137,7 @@ if DB_NAME:  # If database environment variables exist, use PostgreSQL
             "OPTIONS": {"connect_timeout": 5},
         }
     }
+    print("Database config:", DATABASES)
 else:  # Otherwise, default to SQLite
     DATABASES = {
         "default": {
@@ -206,3 +205,23 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = ["*"]
 CORS_ALLOW_METHODS = ["*"]
+
+
+# Configure Django to use S3 for static and media files
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
+# AWS S3-specific settings
+AWS_S3_SESSION_PROFILE = 'eb-cli'
+AWS_STORAGE_BUCKET_NAME = 'files-app-learning'  # Replace with your bucket name
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+# Cache control and file disposition
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+    'ContentDisposition': 'attachment',
+}
+
+# Media file settings
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+MEDIA_ROOT = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'

@@ -7,11 +7,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated 
 
 
-def home(request):
+def home(request, format=None):
     return HttpResponse("Hello there")
 
 @api_view(['POST'])
-def register(request):
+def register(request, format=None):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         print('blah')

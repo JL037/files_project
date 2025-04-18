@@ -236,7 +236,7 @@ STORAGES = {
             "region_name": os.getenv("AWS_S3_REGION_NAME"),
             "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
             "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
-            "default_acl": "public-read",
+            # "default_acl": "public-read",
             "location": "media",
             "file_overwrite": False,
         }
@@ -248,7 +248,7 @@ STORAGES = {
             "region_name": os.getenv("AWS_S3_REGION_NAME"),
             "access_key": os.getenv("AWS_ACCESS_KEY_ID"),
             "secret_key": os.getenv("AWS_SECRET_ACCESS_KEY"),
-            "default_acl": "public-read",
+            # "default_acl": "public-read",
             "location": "static",
         }
     }

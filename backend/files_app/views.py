@@ -4,7 +4,8 @@ from .serializers import FileSerializer, UserSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated 
+from rest_framework.permissions import IsAuthenticated
+from django.conf import settings 
 
 
 def home(request, format=None):
@@ -28,6 +29,12 @@ def files_app(request, format=None):
         serializer = FileSerializer(data, many=True)
         return Response({'files': serializer.data})
     elif request.method == 'POST':
+        uploaded_file = request.FILES.get('file')
+        if uploaded_file:
+            settings.AWS_S3_OBJECT_PARAMETERS = {
+                'CacheControl': 'max-age=86400',
+                'ContentDisposition': f'attachment; filename="{uploaded_file.name}"'
+            }
         serializer = FileSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()

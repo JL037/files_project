@@ -1,4 +1,4 @@
-import { unstable_HistoryRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -6,14 +6,12 @@ import ProtectedPage from './pages/ProtectedPage';
 import MenuBar from './components/MenuBar';
 import HomePage from './pages/Homepage';
 import AuthProvider from './context/Provider';
-import { createBrowserHistory } from 'history';
 import ProtectedRoute from './components/ProtectedRoute';
 
 
 function App() {
-  const history = createBrowserHistory();
   return (
-    <Router history={history}>
+    <Router>
 
     <AuthProvider>
       <MenuBar />

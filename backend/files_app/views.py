@@ -30,12 +30,13 @@ def files_app(request, format=None):
         return Response({'files': serializer.data})
     elif request.method == 'POST':
         uploaded_file = request.FILES.get('file')
+        serializer = FileSerializer(data=request.data, context={'request': request})
         if uploaded_file:
             settings.AWS_S3_OBJECT_PARAMETERS = {
                 'CacheControl': 'max-age=86400',
                 'ContentDisposition': f'attachment; filename="{uploaded_file.name}"'
             }
-        serializer = FileSerializer(data=request.data, context={'request': request})
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
